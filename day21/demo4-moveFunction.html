@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box {
+				width: 100px;
+				height: 100px;
+				background: red;
+				position: absolute;
+				left: 10px;
+				top: 50px;
+				opacity: 0.5;
+				filter: alpha(opacity=50);
+			}
+		</style>
+		
+		<script src="js/day19-move.js"></script>
+		<script>
+			
+onload = function() {
+	var oBtn = document.getElementsByTagName("input")[0];
+	var oBox = document.getElementById("box");
+	
+
+	oBtn.onclick = function() {
+		
+		var oAttr = {
+			left: 200,
+			top: 300,
+			width: 500,
+			height: 200,
+			opacity: 100
+		};
+		
+		startMoveEx(oBox, oAttr, function() {
+			alert("执行完毕！");
+		});
+	}
+
+}
+			
+		</script>
+		
+	</head>
+	<body>
+		<input type="button" value="开始运动" />
+		<div id="box"></div>
+	</body>
+</html>

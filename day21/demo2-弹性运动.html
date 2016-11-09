@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				border: none;
+			}
+			ul, li {
+				list-style: none;
+			}
+
+			#list {
+				width: 400px;
+				height: 30px;
+				margin: 100px auto;
+				position: relative;
+			}
+			#list li {
+				width: 98px;
+				height: 28px;
+				border: 1px solid #ccc;
+				float: left;
+				line-height: 28px;
+				text-align: center;
+				cursor: pointer;
+			}
+			#list .bg {
+				width: 100px;
+				height: 3px;
+				background: red;
+				position: absolute;
+				top: 25px;
+				left: 0px;
+			}
+
+		</style>
+<script type="text/javascript" src="js/day19-move.js" ></script>
+		<script>
+
+onload = function() {
+	var oList = document.getElementById("list");
+	var aLi = oList.getElementsByTagName("li");
+	var oBg = aLi[aLi.length-1]; //红色的bg
+	
+	
+	// oBg.offsetWidth
+//	oBg.offsetLeft = 200 + "px";
+//	return ;
+	
+
+	// 每个导航栏的宽度
+	var width = aLi[0].offsetWidth;
+
+	var timer = null;
+	for (var i = 0; i < aLi.length-1; i++) {
+		
+		
+		aLi[i].xxx = i;
+		aLi[i].onmouseover = function() {
+			var iTarget = this.xxx * width;
+			
+			var speed = 0;
+			
+			clearInterval(timer);
+			
+			timer = setInterval(function() {
+				
+				// 1，获取当前值
+				var current = parseInt(getStyle(oBg, "left"));
+			
+				// 加速
+				// speed += 10;
+				
+				// 【加速度】越来越小
+				speed += (iTarget - current) / 5;
+			
+				// 减小速度值, 摩擦力
+				speed *= 0.7;
+			
+			
+				// 2. 速度
+				//  速度值越来越小
+				// var speed = (iTarget - current) / 5;
+				
+				speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+				
+				console.log(current, speed);
+				
+				
+				// 3. 判断
+				if (current == iTarget) {
+					clearInterval(timer);
+					return ;
+				}
+				
+				// 4. 设置
+				oBg.style.left = current + speed + "px";
+				
+			}, 50);
+		}
+	}
+
+}
+
+		</script>
+
+	</head>
+	<body>
+		<ul id="list">
+			<li>首页</li>
+			<li>关于我们</li>
+			<li>产品</li>
+			<li>联系我们</li>
+			<li class="bg"></li>
+		</ul>
+	</body>
+</html>

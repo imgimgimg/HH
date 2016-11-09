@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box {
+				width: 48px;
+				height: 40px;
+				background: url(img/images2/1.gif);
+				position: absolute;
+				left: 10px;
+				top: 10px;
+			}
+		</style>
+		
+		<script>
+
+onload = function() {
+	//猴子
+	var oBox = document.getElementById("box");
+	
+	// 思路：
+	//  (1) 鼠标按下，开始记录鼠标移动的点(left, top)
+	//  (2) document.onmousemove 记录
+	//  (3) document.onmouseup 鼠标抬起，开始将图片运行记录中的点
+	
+	// 保存鼠标移动的点坐标
+	var arr = [];
+	
+	document.onmousedown = function() {
+		
+		document.onmousemove = function(e) {
+			e = e || window.event;
+			
+			var point = {};
+			
+			point.x = e.clientX;
+			point.y = e.clientY;
+			
+			arr.push(point);
+			
+			console.log(point, arr.length);
+		}
+		
+		document.onmouseup = function() {
+			// 清除鼠标移动的事件处理函数
+			document.onmousemove = null;
+			document.onmouseup = null;
+			
+			// 修改图片
+			oBox.style.background = "url(img/images2/2.gif)";
+			
+			// 回放数组中的点
+			var i = 0;
+			
+			var timer = setInterval(function () {
+				
+			    if (i >= arr.length) {
+			    	// 运行完毕，
+			    	// （1）终止定时器，
+			    	// （2） 清空数组
+			    	// （3）结束函数 
+			    	// （3） 还原图片
+			    	// 
+			    	clearInterval(timer);
+			    	arr = [];
+			    	oBox.style.background = "url(img/images2/1.gif)";
+			    	return ;
+			    }
+				
+				//arr[i]: {x: 100, y:100 }
+			    oBox.style.left = arr[i].x + "px";
+			    oBox.style.top = arr[i].y + "px";
+			    
+			    i++;
+			    
+			    
+		  	}, 20);
+		}
+		
+	}
+}
+
+		</script>
+		
+	</head>
+	<body>
+		<div id="box"></div>
+	</body>
+</html>
