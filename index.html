@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			#box{
+				border:1px solid #ddd;
+				padding:20px;
+				background-color: #efefef;
+			}
+		</style>
+		<script>
+		onload = function(){
+			
+		
+		
+		//获取页面的元素
+			var box = document.getElementById("box");
+			var btn = document.getElementById("btn");
+			
+//			var show = true;
+//			btn.onclick = function(){	
+//		
+//			if(show)
+//			{
+//				box.style.display = "none";
+//				
+//			}else{
+//				box.style.display = "block";
+//			}
+//			 show = !show; 
+//		}
+
+		//面向对象
+		//1】构造一个函数
+		//2】描述对象
+		//3】实例化对象
+		
+		function Display(btn,content){
+			//属性
+			this.btn = btn;
+			this.content = content;
+			this.dis = false;			
+		}
+		//方法，写在原型对象中
+		
+		Display.prototype.init = function(){
+			var self = this;
+			btn.onclick = function(){
+				if(self.dis){
+					self.show();
+				}else{
+					self.hide();
+				}
+			}
+		}
+		//显示
+		Display.prototype.show = function(){
+			this.content.style.display = "block";
+			this.dis = false;			
+		}
+		
+		//隐藏
+		Display.prototype.hide = function(){
+			this.content.style.display = "none";
+			this.dis = true;
+		}
+		
+		//实例化一个对象
+		var s1 = new Display(btn,box);
+		//调用函数中的方法
+		s1.init();
+		
+	}	
+		</script>
+	</head>
+	<body>
+		
+		<button id="btn">显示\隐藏</button>
+		<div id="box">内容</div>
+	</body>
+</html>
